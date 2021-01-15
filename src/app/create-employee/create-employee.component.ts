@@ -1,3 +1,4 @@
+
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../employee';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
-
+  employeeSpinner: boolean;
   employee: Employee = new Employee();
   submitted = false;
 
@@ -17,6 +18,16 @@ export class CreateEmployeeComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+  }
+
+  resetEmployee() {
+    this.employee.firstName = null;
+    this.employee.lastName = null;
+    this.employee.address = null;
+    this.employee.active = null;
+    this.employee.gender = null;
+    this.employee.department = null;
+    this.employee.emailId = null;
   }
 
   newEmployee(): void {
@@ -27,7 +38,7 @@ export class CreateEmployeeComponent implements OnInit {
   save() {
     this.employeeService
       .createEmployee(this.employee).subscribe(data => {
-        console.log(data)
+        console.log(data);
         this.employee = new Employee();
         this.gotoList();
       },
