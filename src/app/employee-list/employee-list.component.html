@@ -1,1 +1,121 @@
-<p>employee-list works!</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Employee List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>created date</th>      
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>gender</th>
+        <th>address</th>
+        <th>department</th>
+        <th>phone</th>
+        <th>Actions</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr >
+        <td>2:10/2021</td>
+        <td>Musa</td>
+        <td>B</td>
+        <td>musa@gmail.com</td>
+        <td>Male</td>
+        <td>address</td>
+        <td>department</td>
+        <td>0929922828</td>
+        <td>
+          <span >
+
+      <a class="text-dark">
+                   <i class="fa fa-edit mr-4 " (click)="goUpdate()"></i>
+      </a>
+
+    </span>
+          <!--          <a [routerLink]="['update', 1]" class="text-dark">-->
+          <!--            <i class="fa fa- mr-4 "></i>-->
+          <!--          </a>-->
+          <span class="float-left mr-2" >
+
+      <a  [routerLink]="[1, 'details']" >
+        <i class="fa fa-trash" ></i> </a>
+    </span>
+          <span >
+      <a class="text-dark">
+        <i class="fa fa-dashcube mr-4 " (click)="details()"></i>
+      </a>
+    </span>
+        </td>
+      </tr>
+      <tr >
+        <td>2:10/2021</td>
+        <td>Musa</td>
+        <td>B</td>
+        <td>musa@gmail.com</td>
+        <td>Male</td>
+        <td>address</td>
+        <td>department</td>
+        <td>0929922828</td>
+        <td>
+          <span >
+
+      <a class="text-dark">
+                   <i class="fa fa-edit mr-4 " (click)="goUpdate()"></i>
+      </a>
+
+    </span>
+          <!--          <a [routerLink]="['update', 1]" class="text-dark">-->
+          <!--            <i class="fa fa- mr-4 "></i>-->
+          <!--          </a>-->
+          <span class="float-left mr-2" >
+
+      <a  [routerLink]="[1, 'details']" >
+        <i class="fa fa-trash" ></i> </a>
+    </span>
+          <span >
+      <a class="text-dark">
+        <i class="fa fa-dashcube mr-4 " (click)="details()"></i>
+      </a>
+    </span>
+        </td>
+      </tr>
+      <tr >
+        <td>2:10/2021</td>
+        <td>Musa</td>
+        <td>B</td>
+        <td>musa@gmail.com</td>
+        <td>Male</td>
+        <td>address</td>
+        <td>department</td>
+        <td>0929922828</td>
+        <td>
+          <span >
+
+      <a class="text-dark">
+                   <i class="fa fa-edit mr-4 " (click)="goUpdate()"></i>
+      </a>
+
+    </span>
+          <!--          <a [routerLink]="['update', 1]" class="text-dark">-->
+          <!--            <i class="fa fa- mr-4 "></i>-->
+          <!--          </a>-->
+          <span class="float-left mr-2" >
+
+      <a  [routerLink]="[1, 'details']" >
+        <i class="fa fa-trash" ></i> </a>
+    </span>
+          <span >
+      <a class="text-dark">
+        <i class="fa fa-dashcube mr-4 " (click)="details()"></i>
+      </a>
+    </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
