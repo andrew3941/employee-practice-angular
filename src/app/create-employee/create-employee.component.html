@@ -1,42 +1,20 @@
 <h3>Create Employee</h3>
 <div [hidden]="submitted" style="width: 800px;">
-  <!--<form class="form-inline" (ngSubmit)="onSubmit()">-->
-  <!--<div class="form-row mb-12">-->
-
-  <!--<label>First Name</label>-->
-  <!--<span><input type="text" class="form-control" id="firstName" required [(ngModel)]="employee.firstName" name="fistName" /></span>-->
-
-  <!--<label>Last Name</label>-->
-  <!--<span><input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.lastName" name="lastName"/></span>-->
-  <!---->
-  <!--</div>-->
-
-  <!--<div class="form-group">-->
-  <!--<label for="emailId">Email Id</label>-->
-  <!--<input type="text" class="form-control" id="emailId" required [(ngModel)]="employee.emailId" name="emailId">-->
-  <!--</div>-->
-  <!--<button type="submit" class="btn btn-success">Submit</button>-->
-  <!--</form>-->
-
   <div class="modal-body">
-
     <div class="row mt-5">
-
       <div class="col">
 
-        <form (ngSubmit)="onSubmit()" class="animated fadeIn fast">
+        <form #f="ngForm" (ngSubmit)="onSubmitEmployee(f)" class="animated fadeIn fast">
 
-          <div class="form-row mb-4">
-            <div class="col-6">
-
+          <div class="form-row mb-lg-4">
+            <div class="col-8">
               <input ngModel #firstName="ngModel" [(ngModel)]="employee.firstName" class="form-control"
                      [ngClass]="{'alert-border': firstName.errors?.emptyField || firstName.errors?.maxlength}"
                      id="firstName"
                      name="firstName"
                      placeholder="Enter employee first name"
                      type="text"  maxlength="30" required>
-
-              <div *ngIf="submitted && firstName.errors">
+               <div *ngIf="f.submitted && firstName.errors">
                 <div *ngIf="firstName.errors?.emptyField" class="alert-message">
                   Employee First name is missing
                 </div>
@@ -45,15 +23,14 @@
                 </div>
               </div>
             </div>
-
-            <div class="col-6">
+            <div class="col-4">
               <input ngModel #lastName="ngModel" [(ngModel)]="employee.lastName" class="form-control"
                      [ngClass]="{'alert-border': lastName.errors?.emptyField || lastName.errors?.maxlength}"
                      id="lastName"
                      name="lastName"
                      placeholder="Enter employee last name"
                      type="text"  maxlength="30" required>
-              <div *ngIf="submitted && lastName.errors">
+              <div *ngIf="f.submitted && lastName.errors">
                 <div *ngIf="lastName.errors?.emptyField" class="alert-message">
                   Employee Last name is missing
                 </div>
@@ -61,54 +38,6 @@
                   Maximum number of character must not exceed 30
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div class="form-row mb-4">
-            <div class="col-6">
-              <input #emailId="ngModel" [(ngModel)]="employee.emailId" [ngClass]="{'alert-border': emailId.errors?.emptyField || emailId.errors?.maxlength
-                            || emailId.errors?.pattern}"
-                     class="form-control"
-                     id="emailId"
-                     name="emailId"
-                     placeholder="Enter email address"
-                     type="email" required="email">
-              <div *ngIf="submitted && (emailId.errors?.emptyField || emailId.errors?.maxlength || emailId.errors?.pattern)">
-
-                <div *ngIf="emailId.errors?.emptyField" class="alert-message">
-                  Email field must be empty
-                </div>
-
-                <div *ngIf="emailId.errors?.maxlength" class="alert-message">
-                  Length of the email must exceed the set number of chracters
-                </div>
-
-                <div *ngIf="emailId.errors?.pattern" class="alert-message">
-                  The pattern of the email must be correct
-                </div>
-
-              </div>
-            </div>
-
-            <div class="col-6">
-              <input ngModel #department="ngModel" [(ngModel)]="employee.department"
-                     [ngClass]="{'alert-border': department.errors?.emptyField || department.errors?.maxlength}"
-                     class="form-control"
-                     id="department"
-                     name="department"
-                     placeholder="Enter the employee department"
-                     type="text" required>
-              <div *ngIf="submitted && department.errors?.emptyField ">
-                <div *ngIf="department.errors?.emptyField" class="alert-message">
-                  Enter the department of the employee
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row mb-4">
-            <div class="col-12">
-              <input type="date" id="date"  class="form-control" [(ngModel)]="employee.dateOfBirth" name="dob"  required>
             </div>
           </div>
 
@@ -121,7 +50,7 @@
                      name="address"
                      placeholder="Enter employee address"
                      type="email" required="email">
-              <div *ngIf="submitted && (address.errors?.emptyField || address.errors?.maxlength)">
+              <div *ngIf="f.submitted && (address.errors?.emptyField || address.errors?.maxlength)">
 
                 <div *ngIf="address.errors?.emptyField" class="alert-message">
                   Email field must be empty
@@ -133,90 +62,81 @@
               </div>
             </div>
           </div>
-
-          <div class="form-row mb-4">
-
-            <div class="col-12">
-
-              <div class="form-check form-check-inline">
-
-                <label class="radio-inline"><strong>Status: &nbsp;</strong>
-                  <input type="radio" class="form-check-input"
-                         name="active"
-                         [(ngModel)]="employee.active"
-                         [value]="1"
-                         #active="ngModel">Active
-                </label>
-
-              </div>
-
-              <div class="form-check form-check-inline">
-
-                <label class="radio-inline">
-                  <input type="radio" class="form-check-input"
-                         name="active"
-                         [(ngModel)]="employee.active"
-                         [value]="0"
-                         #active="ngModel">Not active
-                </label>
-              </div>
-
-              <div *ngIf="submitted && active.errors?.emptyField"></div>
-
-              <div *ngIf="active.errors?.emptyField" class="alert-message">
-
-                <div class="col text-danger">Select the status of the employee</div>
+          
+          <div class="form-row mb-lg-4">
+            <div class="col-6">
+              <input #emailId="ngModel" [(ngModel)]="employee.emailId" [ngClass]="{'alert-border': emailId.errors?.emptyField || emailId.errors?.maxlength|| emailId.errors?.pattern}"
+                     class="form-control"
+                     id="emailId"
+                     name="emailId"
+                     placeholder="Email"
+                     type="email" required="email">
+              <div *ngIf="f.submitted && (emailId.errors?.emptyField || emailId.errors?.maxlength || emailId.errors?.pattern)">
+                <div *ngIf="emailId.errors?.emptyField" class="alert-message">
+                  Email field must be empty
+                </div>
+                <div *ngIf="emailId.errors?.maxlength" class="alert-message">
+                  Length of the email must exceed the set number of chracters
+                </div>
+                <div *ngIf="emailId.errors?.pattern" class="alert-message">
+                  The pattern of the email must be correct
+                </div>
 
               </div>
-
             </div>
 
+            <div class="col-6">
+              <input #phone="ngModel" [(ngModel)]="employee.phone"
+                     [ngClass]="{'alert-border': phone.errors?.emptyField || phone.errors?.pattern}"
+                     class="form-control"
+                     id="phone"
+                     maxlength="9"
+                     name="phone"
+                     placeholder ="Phone"
+                     type="text">
+
+              <div *ngIf="f.submitted && (phone.errors?.emptyField || phone.errors?.pattern)">
+
+                <div *ngIf="phone.errors?.emptyField" class="alert-message">
+                  phone number empty
+                </div>
+
+                <div *ngIf="phone.errors?.pattern" class="alert-message">
+                  phone number pattern
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="form-row mb-4">
-
-            <div class="col-12">
-
-              <div class="form-check form-check-inline">
-
-                <label class="radio-inline"><strong>Gender: &nbsp;</strong>
-                  <input type="radio" class="form-check-input"
-                         name="gender"
-                         [(ngModel)]="employee.gender"
-                         [value]="1"
-                         #gender="ngModel">Male
-                </label>
-
-              </div>
-
-              <div class="form-check form-check-inline">
-
-                <label class="radio-inline">
-                  <input type="radio" class="form-check-input"
-                         name="gender"
-                         [(ngModel)]="employee.gender"
-                         [value]="0"
-                         #gender="ngModel">Female
-                </label>
-              </div>
-
-              <div *ngIf="submitted && gender.errors?.emptyField"></div>
-
-              <div *ngIf="gender.errors?.emptyField" class="alert-message">
-
-                <div class="col text-danger">Select gender</div>
-
-              </div>
-
+            <div class="col-6">
+              <select class="custom-select" name="gender"
+                      #gender="ngModel" id="gender"
+                      (ngModelChange)="SearchQuiries($event)"
+                      [(ngModel)]="employee.gender">
+                         <option value="0">Male</option>
+                         <option value="1">Female</option>
+                         <option value="2">Other</option>
+              </select>
             </div>
 
+            <div class="col-6">
+              <select class="custom-select" name="department"
+                      #department="ngModel" id="department"
+                      (ngModelChange)="SearchQuiries($event)"
+                      [(ngModel)]="employee.department">
+                          <option value="0">Computer Science</option>
+                          <option value="1">Accounting</option>
+                          <option value="2">Policies</option>
+                          <option value="3">Management</option>
+              </select>
+            </div>
           </div>
-
           <hr/>
 
           <div class="form-group row mb-4">
             <div class="col-6">
-              <div class="col text-danger"><b>(*) Employee registration message</b></div>
+              <div class="col text-danger"><b>(*) Required </b></div>
             </div>
 
           </div>
