@@ -1,168 +1,253 @@
-<h3>Create Employee</h3>
-<div [hidden]="submitted" style="width: 800px;">
-  <div class="modal-body">
-    <div class="row mt-5">
-      <div class="col">
-
-        <form #f="ngForm" (ngSubmit)="onSubmitEmployee(f)" class="animated fadeIn fast">
-
-          <div class="form-row mb-lg-4">
-            <div class="col-8">
-              <input ngModel #firstName="ngModel" [(ngModel)]="employee.firstName" class="form-control"
-                     [ngClass]="{'alert-border': firstName.errors?.emptyField || firstName.errors?.maxlength}"
-                     id="firstName"
-                     name="firstName"
-                     placeholder="Enter employee first name"
-                     type="text"  maxlength="30" required>
-               <div *ngIf="f.submitted && firstName.errors">
-                <div *ngIf="firstName.errors?.emptyField" class="alert-message">
-                  Employee First name is missing
-                </div>
-                <div *ngIf="firstName.errors?.maxlength" class="alert-message">
-                  Maximum number of character must not exceed 30
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <input ngModel #lastName="ngModel" [(ngModel)]="employee.lastName" class="form-control"
-                     [ngClass]="{'alert-border': lastName.errors?.emptyField || lastName.errors?.maxlength}"
-                     id="lastName"
-                     name="lastName"
-                     placeholder="Enter employee last name"
-                     type="text"  maxlength="30" required>
-              <div *ngIf="f.submitted && lastName.errors">
-                <div *ngIf="lastName.errors?.emptyField" class="alert-message">
-                  Employee Last name is missing
-                </div>
-                <div *ngIf="lastName.errors?.maxlength" class="alert-message">
-                  Maximum number of character must not exceed 30
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row mb-4">
-            <div class="col-12">
-              <input #address="ngModel" [(ngModel)]="employee.address" [ngClass]="{'alert-border': address.errors?.emptyField || address.errors?.maxlength
-                            || address.errors?.pattern}"
-                     class="form-control"
-                     id="address"
-                     name="address"
-                     placeholder="Enter employee address"
-                     type="email" required="email">
-              <div *ngIf="f.submitted && (address.errors?.emptyField || address.errors?.maxlength)">
-
-                <div *ngIf="address.errors?.emptyField" class="alert-message">
-                  Email field must be empty
-                </div>
-
-                <div *ngIf="address.errors?.maxlength" class="alert-message">
-                  Address must exceed the set number of chracters
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-row mb-lg-4">
-            <div class="col-6">
-              <input #emailId="ngModel" [(ngModel)]="employee.emailId" [ngClass]="{'alert-border': emailId.errors?.emptyField || emailId.errors?.maxlength|| emailId.errors?.pattern}"
-                     class="form-control"
-                     id="emailId"
-                     name="emailId"
-                     placeholder="Email"
-                     type="email" required="email">
-              <div *ngIf="f.submitted && (emailId.errors?.emptyField || emailId.errors?.maxlength || emailId.errors?.pattern)">
-                <div *ngIf="emailId.errors?.emptyField" class="alert-message">
-                  Email field must be empty
-                </div>
-                <div *ngIf="emailId.errors?.maxlength" class="alert-message">
-                  Length of the email must exceed the set number of chracters
-                </div>
-                <div *ngIf="emailId.errors?.pattern" class="alert-message">
-                  The pattern of the email must be correct
-                </div>
-
-              </div>
-            </div>
-
-            <div class="col-6">
-              <input #phone="ngModel" [(ngModel)]="employee.phone"
-                     [ngClass]="{'alert-border': phone.errors?.emptyField || phone.errors?.pattern}"
-                     class="form-control"
-                     id="phone"
-                     maxlength="9"
-                     name="phone"
-                     placeholder ="Phone"
-                     type="text">
-
-              <div *ngIf="f.submitted && (phone.errors?.emptyField || phone.errors?.pattern)">
-
-                <div *ngIf="phone.errors?.emptyField" class="alert-message">
-                  phone number empty
-                </div>
-
-                <div *ngIf="phone.errors?.pattern" class="alert-message">
-                  phone number pattern
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row mb-4">
-            <div class="col-6">
-              <select class="custom-select" name="gender"
-                      #gender="ngModel" id="gender"
-                      (ngModelChange)="SearchQuiries($event)"
-                      [(ngModel)]="employee.gender">
-                         <option value="0">Male</option>
-                         <option value="1">Female</option>
-                         <option value="2">Other</option>
-              </select>
-            </div>
-
-            <div class="col-6">
-              <select class="custom-select" name="department"
-                      #department="ngModel" id="department"
-                      (ngModelChange)="SearchQuiries($event)"
-                      [(ngModel)]="employee.department">
-                          <option value="0">Computer Science</option>
-                          <option value="1">Accounting</option>
-                          <option value="2">Policies</option>
-                          <option value="3">Management</option>
-              </select>
-            </div>
-          </div>
-          <hr/>
-
-          <div class="form-group row mb-4">
-            <div class="col-6">
-              <div class="col text-danger"><b>(*) Required </b></div>
-            </div>
-
-          </div>
-          <div class="form-group row mb-4">
-            <div class="col-12 text-right">
-              <!--<app-spinner *ngIf="employeeSpinner"></app-spinner>-->
-              <button class="btn btn-primary mr-3" type="submit">Save</button>
-              <button class="btn btn-outline-secondary" type="button"(click)="resetEmployee()">
-                Cancel
-              </button>
-            </div>
-          </div>
-        </form>
-
-      </div>
-
+    <form class="form-horizontal" [formGroup]="form" #f="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+    <div class="form-row mb-lg-4">
+    <div class="col-sm-8">
+      <label for="firstname" class="control-label required">First Name</label>
+      <input type="text" id="firstname"
+             [ngClass]="displayFieldCss('firstname')"
+             class="form-control"
+             [(ngModel)]="employee.firstName">
     </div>
 
+    <div class="col-sm-4">
+      <label for="lastname" class="control-label required">Last Name</label>
+      <input type="text" id="lastname"
+             class="form-control"
+             [ngClass]="displayFieldCss('lastname')"
+             [(ngModel)]="employee.lastName">
+    </div>
+    </div>
   </div>
 
-</div>
+  <div class="form-group">
+    <div class="form-row mb-lg-4">
+    <div class="col-sm-12">
+      <label for="emailId" class="control-label required">Email</label>
+      <input type="text" id="emailId"
+             class="form-control"
+             [ngClass]="displayFieldCss('emailId')"
+             [(ngModel)]="employee.emailId">
+    </div>
+    </div>
+  </div>
+
+  <div formGroupName="address">
+    <div class="form-group">
+      <div class="form-row mb-lg-4">
+        <div class="col-md-6">
+          <label for="address" class="control-label required">Address</label>
+          <input type="text" id="address"
+                 class="form-control"
+                 [ngClass]="displayFieldCss('address')"
+                 [(ngModel)]="employee.address">
+        </div>
+        <div class="col-md-2">
+        <label for="gender" class="control-label required">Gender</label>
+        <select class="custom-select" name="gender" #gender="ngModel" id="gender" [(ngModel)]="employee.gender">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+          <option value="2">Other</option>
+        </select>
+      </div>
+        <div class="col-md-2">
+          <label for="phone" class="control-label">Phone Number</label>
+          <input #phone="ngModel" [(ngModel)]="employee.phone"
+                 [ngClass]="{'alert-border': phone.errors?.emptyField || phone.errors?.pattern}"
+                 class="form-control"
+                 id="phone"
+                 maxlength="9"
+                 name="phone"
+                 [ngClass]="displayFieldCss('phone')"
+                 placeholder ="+23277150549"
+                 type="text">
+        </div>
+        <div class="col-md-2">
+          <label for="department" class="control-label required">Department</label>
+          <select class="custom-select" name="department"
+                  #department="ngModel" id="department"
+                  [(ngModel)]="employee.department">
+            <option value="0">Computer Science</option>
+            <option value="1">Accounting</option>
+            <option value="2">Policies</option>
+            <option value="3">Management</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+    <button class="btn btn-primary mr-3" name="" type="submit">Save</button>
+    <button class="btn" (click)="reset()" style="background-color: darkgrey">Reset</button>
+</form>
 
 
 
 
-<div [hidden]="!submitted">
-  <h4>You submitted successfully!</h4>
-  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div [hidden]="submitted" style="width: 800px;">-->
+    <!--<div class="modal-body">-->
+      <!--<div class="row mt-5">-->
+        <!--<div class="col">-->
+          <!--<form #f="ngForm" (ngSubmit)="onSubmitEmployee(f)" class="animated fadeIn fast">-->
+            <!--<div class="form-row mb-lg-4">-->
+              <!--<div class="col-8">-->
+                <!--<input id="firstName"-->
+                       <!--required type="text"-->
+                       <!--class="form-control"-->
+                       <!--name="firstName"-->
+                       <!--maxlength="30"-->
+                       <!--placeholder="Enter employee first name"-->
+                       <!--[(ngModel)]="employee.firstName"-->
+                       <!--#firstName="ngModel">-->
+                <!--<div *ngIf="f.submitted && firstName.errors">-->
+                  <!--<div *ngIf="firstName.errors?.emptyField" class="alert-message">-->
+                    <!--<div style="color: red">Employee First name is missing</div>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="firstName.errors?.maxlength" class="alert-message">-->
+                    <!--<div style="color: red">Maximum number of character must not exceed 30</div></div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-4">-->
+
+                <!--<input id="lastName"-->
+                       <!--required type="text"-->
+                       <!--class="form-control"-->
+                       <!--name="lastName"-->
+                       <!--maxlength="30"-->
+                       <!--placeholder="Enter employee last name"-->
+                       <!--[(ngModel)]="employee.lastName"-->
+                       <!--#lastName="ngModel">-->
+                <!--<div *ngIf="f.submitted && lastName.errors">-->
+                  <!--<div *ngIf="lastName.errors?.emptyField" class="alert-message">-->
+                    <!--<div style="color: red">Employee Last name is missing</div>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="lastName.errors?.maxlength" class="alert-message">-->
+                    <!--<div style="color: red">Maximum number of character must not exceed 30</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-row mb-4">-->
+              <!--<div class="col-12">-->
+                <!--<input #address="ngModel" [(ngModel)]="employee.address" [ngClass]="{'alert-border': address.errors?.emptyField || address.errors?.maxlength-->
+                              <!--|| address.errors?.pattern}"-->
+                       <!--class="form-control"-->
+                       <!--id="address"-->
+                       <!--name="address"-->
+                       <!--placeholder="Enter employee address"-->
+                       <!--type="email" required="email">-->
+                <!--<div *ngIf="f.submitted && (address.errors?.emptyField || address.errors?.maxlength)">-->
+                  <!--<div *ngIf="address.errors?.emptyField" class="alert-message">-->
+                    <!--<div style="color: red">Email field must be empty</div>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="address.errors?.maxlength" class="alert-message">-->
+                    <!--<div style="color: red">Address must exceed the set number of chracters</div></div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-row mb-lg-4">-->
+              <!--<div class="col-6">-->
+                <!--<input #emailId="ngModel" [(ngModel)]="employee.emailId" [ngClass]="{'alert-border': emailId.errors?.emptyField || emailId.errors?.maxlength|| emailId.errors?.pattern}"-->
+                       <!--class="form-control"-->
+                       <!--id="emailId"-->
+                       <!--name="emailId"-->
+                       <!--placeholder="Email"-->
+                       <!--type="email" required="email">-->
+                <!--<div *ngIf="f.submitted && (emailId.errors?.emptyField || emailId.errors?.maxlength || emailId.errors?.pattern)">-->
+                  <!--<div *ngIf="emailId.errors?.emptyField" class="alert-message">-->
+                    <!--<div style="color: red">Email field must be empty</div>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="emailId.errors?.maxlength" class="alert-message">-->
+                    <!--<div style="color: red">Length of the email must exceed the set number of chracters</div></div>-->
+                  <!--<div *ngIf="emailId.errors?.pattern" class="alert-message">-->
+                    <!--<div style="color: red">The pattern of the email must be correct</div>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+              <!--</div>-->
+
+              <!--<div class="col-6">-->
+                <!--<input #phone="ngModel" [(ngModel)]="employee.phone"-->
+                       <!--[ngClass]="{'alert-border': phone.errors?.emptyField || phone.errors?.pattern}"-->
+                       <!--class="form-control"-->
+                       <!--id="phone"-->
+                       <!--maxlength="9"-->
+                       <!--name="phone"-->
+                       <!--placeholder ="Phone"-->
+                       <!--type="text">-->
+
+                <!--<div *ngIf="f.submitted && (phone.errors?.emptyField || phone.errors?.pattern)">-->
+                  <!--<div *ngIf="phone.errors?.emptyField" class="alert-message">-->
+                    <!--<div style="color: red">phone number empty</div>-->
+                  <!--</div>-->
+
+                  <!--<div *ngIf="phone.errors?.pattern" class="alert-message">-->
+                    <!--<div style="color: red">phone number pattern</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-row mb-4">-->
+              <!--<div class="col-6">-->
+                <!--<select class="custom-select" name="gender"-->
+                        <!--#gender="ngModel" id="gender"-->
+                        <!--[(ngModel)]="employee.gender">-->
+                  <!--<option value="0">Male</option>-->
+                  <!--<option value="1">Female</option>-->
+                  <!--<option value="2">Other</option>-->
+                <!--</select>-->
+              <!--</div>-->
+
+              <!--<div class="col-6">-->
+                <!--<select class="custom-select" name="department"-->
+                        <!--#department="ngModel" id="department"-->
+                        <!--[(ngModel)]="employee.department">-->
+                  <!--<option value="0">Computer Science</option>-->
+                  <!--<option value="1">Accounting</option>-->
+                  <!--<option value="2">Policies</option>-->
+                  <!--<option value="3">Management</option>-->
+                <!--</select>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<hr/>-->
+
+            <!--<div class="form-group row mb-4">-->
+              <!--<div class="col-12 text-right">-->
+                <!--&lt;!&ndash;<app-spinner *ngIf="employeeSpinner"></app-spinner>&ndash;&gt;-->
+                <!--<button class="btn btn-primary mr-3" name="" type="submit">Save</button>-->
+                <!--<button class="btn btn-outline-secondary" type="button"(click)="resetEmployee()">-->
+                  <!--Cancel-->
+                <!--</button>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</form>-->
+
+        <!--</div>-->
+
+      <!--</div>-->
+
+    <!--</div>-->
+
+  <!--</div>-->
+
+  <!--<div [hidden]="!submitted">-->
+    <!--<h4>You submitted successfully!</h4>-->
+     <!--<button class="btn btn-success" (click)="newEmployee()">Add</button>-->
+  <!--</div>-->
+
+
+
