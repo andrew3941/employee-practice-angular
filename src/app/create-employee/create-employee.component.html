@@ -22,11 +22,11 @@
   <div class="form-group">
     <div class="form-row mb-lg-4">
     <div class="col-sm-12">
-      <label for="emailId" class="control-label required">Email</label>
-      <input type="text" id="emailId"
+      <label for="email" class="control-label required">Email</label>
+      <input type="text" id="email"
              class="form-control"
              [ngClass]="displayFieldCss('emailId')"
-             [(ngModel)]="employee.emailId">
+             [(ngModel)]="employee.email">
     </div>
     </div>
   </div>
@@ -50,13 +50,13 @@
         </select>
       </div>
         <div class="col-md-2">
-          <label for="phone" class="control-label">Phone Number</label>
-          <input #phone="ngModel" [(ngModel)]="employee.phone"
+          <label for="phoneNumber" class="control-label">Phone Number</label>
+          <input #phone="ngModel" [(ngModel)]="employee.phoneNumber"
                  [ngClass]="{'alert-border': phone.errors?.emptyField || phone.errors?.pattern}"
                  class="form-control"
-                 id="phone"
+                 id="phoneNumber"
                  maxlength="9"
-                 name="phone"
+                 name="phoneNumber"
                  [ngClass]="displayFieldCss('phone')"
                  placeholder ="+23277150549"
                  type="text">
