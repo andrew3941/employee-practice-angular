@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class EmployeeService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/api/v1/employees';
+  private baseUrl = 'http://localhost:2021/';
 
   constructor(private http: HttpClient) { }
 
@@ -27,8 +27,9 @@ export class EmployeeService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
+  // http://localhost:2021/employee/all
   getEmployeesList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrl}`+'employees/all');
   }
 
 }

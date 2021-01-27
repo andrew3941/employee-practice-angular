@@ -6,7 +6,7 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>created date</th>      
+        <th>created date</th>
         <th>Firstname</th>
         <th>Lastname</th>
         <th>Email</th>
@@ -19,15 +19,15 @@
       </tr>
       </thead>
       <tbody>
-      <tr >
-        <td>2:10/2021</td>
-        <td>Musa</td>
-        <td>B</td>
-        <td>musa@gmail.com</td>
-        <td>Male</td>
-        <td>address</td>
-        <td>department</td>
-        <td>0929922828</td>
+      <tr  *ngFor="let employe of employ">
+        <td>{{employe.createdDate}}</td>
+        <td>{{employe.firstName}}</td>
+        <td>{{employe.lastName}}</td>
+        <td>{{employe.email}}</td>
+        <td>{{employe.gender}}</td>
+        <td>{{employe.address}}</td>
+        <td>{{employe.department}}</td>
+        <td>{{employe.phoneNumber}}</td>
         <td>
           <span >
 
@@ -51,70 +51,70 @@
     </span>
         </td>
       </tr>
-      <tr >
-        <td>2:10/2021</td>
-        <td>Musa</td>
-        <td>B</td>
-        <td>musa@gmail.com</td>
-        <td>Male</td>
-        <td>address</td>
-        <td>department</td>
-        <td>0929922828</td>
-        <td>
-          <span >
+<!--      <tr >-->
+<!--        <td>2:10/2021</td>-->
+<!--        <td>Musa</td>-->
+<!--        <td>B</td>-->
+<!--        <td>musa@gmail.com</td>-->
+<!--        <td>Male</td>-->
+<!--        <td>address</td>-->
+<!--        <td>department</td>-->
+<!--        <td>0929922828</td>-->
+<!--        <td>-->
+<!--          <span >-->
 
-      <a class="text-dark">
-                   <i class="fa fa-edit mr-4 " (click)="goUpdate()"></i>
-      </a>
+<!--      <a class="text-dark">-->
+<!--                   <i class="fa fa-edit mr-4 " (click)="goUpdate()"></i>-->
+<!--      </a>-->
 
-    </span>
-          <!--          <a [routerLink]="['update', 1]" class="text-dark">-->
-          <!--            <i class="fa fa- mr-4 "></i>-->
-          <!--          </a>-->
-          <span class="float-left mr-2" >
+<!--    </span>-->
+<!--          &lt;!&ndash;          <a [routerLink]="['update', 1]" class="text-dark">&ndash;&gt;-->
+<!--          &lt;!&ndash;            <i class="fa fa- mr-4 "></i>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </a>&ndash;&gt;-->
+<!--          <span class="float-left mr-2" >-->
 
-      <a  [routerLink]="[1, 'details']" >
-        <i class="fa fa-trash" ></i> </a>
-    </span>
-          <span >
-      <a class="text-dark">
-        <i class="fa fa-dashcube mr-4 " (click)="details()"></i>
-      </a>
-    </span>
-        </td>
-      </tr>
-      <tr >
-        <td>2:10/2021</td>
-        <td>Musa</td>
-        <td>B</td>
-        <td>musa@gmail.com</td>
-        <td>Male</td>
-        <td>address</td>
-        <td>department</td>
-        <td>0929922828</td>
-        <td>
-          <span >
+<!--      <a  [routerLink]="[1, 'details']" >-->
+<!--        <i class="fa fa-trash" ></i> </a>-->
+<!--    </span>-->
+<!--          <span >-->
+<!--      <a class="text-dark">-->
+<!--        <i class="fa fa-dashcube mr-4 " (click)="details()"></i>-->
+<!--      </a>-->
+<!--    </span>-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--      <tr >-->
+<!--        <td>2:10/2021</td>-->
+<!--        <td>Musa</td>-->
+<!--        <td>B</td>-->
+<!--        <td>musa@gmail.com</td>-->
+<!--        <td>Male</td>-->
+<!--        <td>address</td>-->
+<!--        <td>department</td>-->
+<!--        <td>0929922828</td>-->
+<!--        <td>-->
+<!--          <span >-->
 
-      <a class="text-dark">
-                   <i class="fa fa-edit mr-4 " (click)="goUpdate()"></i>
-      </a>
+<!--      <a class="text-dark">-->
+<!--                   <i class="fa fa-edit mr-4 " (click)="goUpdate()"></i>-->
+<!--      </a>-->
 
-    </span>
-          <!--          <a [routerLink]="['update', 1]" class="text-dark">-->
-          <!--            <i class="fa fa- mr-4 "></i>-->
-          <!--          </a>-->
-          <span class="float-left mr-2" >
+<!--    </span>-->
+<!--          &lt;!&ndash;          <a [routerLink]="['update', 1]" class="text-dark">&ndash;&gt;-->
+<!--          &lt;!&ndash;            <i class="fa fa- mr-4 "></i>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </a>&ndash;&gt;-->
+<!--          <span class="float-left mr-2" >-->
 
-      <a  [routerLink]="[1, 'details']" >
-        <i class="fa fa-trash" ></i> </a>
-    </span>
-          <span >
-      <a class="text-dark">
-        <i class="fa fa-dashcube mr-4 " (click)="details()"></i>
-      </a>
-    </span>
-        </td>
-      </tr>
+<!--      <a  [routerLink]="[1, 'details']" >-->
+<!--        <i class="fa fa-trash" ></i> </a>-->
+<!--    </span>-->
+<!--          <span >-->
+<!--      <a class="text-dark">-->
+<!--        <i class="fa fa-dashcube mr-4 " (click)="details()"></i>-->
+<!--      </a>-->
+<!--    </span>-->
+<!--        </td>-->
+<!--      </tr>-->
       </tbody>
     </table>
   </div>

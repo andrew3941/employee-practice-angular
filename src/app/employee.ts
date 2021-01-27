@@ -5,7 +5,10 @@ export class Employee {
   gender: string;
   address: string;
   department: string;
-  phone: number;
-  emailId: string;
-  active: boolean;
+  phoneNumber: Number;
+  email: string;
+  createdDate:Date;
+  modifyDate:Date;
+
+
 }
