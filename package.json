@@ -23,6 +23,7 @@
     "font-awesome": "^4.7.0",
     "jQuery": "^1.7.4",
     "rxjs": "~6.5.4",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^10.13.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

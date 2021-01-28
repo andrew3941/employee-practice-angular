@@ -2,8 +2,8 @@ import { EmployeeService } from '../employee.service';
 import { Employee } from '../employee';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {NgForm, FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
-
+import {NgForm, FormGroup, FormBuilder} from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-employee',
@@ -11,58 +11,26 @@ import {NgForm, FormGroup, FormBuilder, Validators, FormControl} from '@angular/
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
-  form: FormGroup;
-  employee: Employee = new Employee();
+  saveEmployeeSpinner: boolean;
+  employeeSpinner: boolean;
+  validEmployee: boolean;
+  query: Employee = new Employee();
+  swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-primary',
+      cancelButton: 'btn btn-outline-secondary ml-4'
+    },
+    buttonsStyling: false
+  });
 
   constructor(private employeeService: EmployeeService,
               private formBuilder: FormBuilder,
               private router: Router) { }
 
-  ngOnInit() {
-    this.form = this.formBuilder.group(
-      {
-        firstname: [null, Validators.required],
-        lastname: [null, Validators.required],
-        emailId: [null, [Validators.required, Validators.email]],
-        address: this.formBuilder.group({
-          gender: [null, Validators.required],
-          department:[null, Validators.required],
-      })
-    });
-  }
+  ngOnInit() { }
 
-  isFieldValid(field: string) {
-    return !this.form.get(field).valid && this.form.get(field).touched;
-  }
-
-  displayFieldCss(field: string) {
-    return {
-      'has-error': this.isFieldValid(field),
-      'has-feedback': this.isFieldValid(field)
-    };
-  }
-
-  onSubmit() {
-    console.log(this.employee);
-    if (this.form.valid) {
-      console.log('form submitted');
-    } else {
-      this.validateAllFormFields(this.form);
-    }
-  }
-
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      console.log(field);
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
-  }
-  reset(){
-    this.form.reset();
+  onSubmitEmployee(employeeForm: NgForm) {
+    console.log(employeeForm,"Message")
   }
 }
+
