@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class CreateEmployeeComponent implements OnInit {
   saveEmployeeSpinner: boolean;
   employeeSpinner: boolean;
-  query: Employee = new Employee();
+  employee: Employee = new Employee();
 
   constructor(private employeeService: EmployeeService,
               private formBuilder: FormBuilder,
@@ -22,7 +22,7 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() { }
 
   onSubmitEmployee(employeeForm: NgForm) {
-    console.log(employeeForm,"Message")
+    console.log(employeeForm,"Message");
   }
 }
 

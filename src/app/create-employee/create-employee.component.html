@@ -3,8 +3,7 @@
     <div class="form-row mb-lg-4">
     <div class="col-sm-8">
       <label class="control-label required">First Name</label>
-      <input type="text" name="firstName" class="form-control"
-             [(ngModel)]="employee.firstName"
+      <input type="text" name="firstName" class="form-control" [(ngModel)]="employee.firstName"
              #firstName="ngModel"
              [ngClass]="{ 'is-invalid': employeeForm.submitted && firstName.invalid }" required>
       <div *ngIf="employeeForm.submitted && firstName.invalid" class="invalid-feedback">
