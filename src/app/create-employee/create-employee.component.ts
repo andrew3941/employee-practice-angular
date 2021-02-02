@@ -13,15 +13,7 @@ import Swal from 'sweetalert2';
 export class CreateEmployeeComponent implements OnInit {
   saveEmployeeSpinner: boolean;
   employeeSpinner: boolean;
-  validEmployee: boolean;
   query: Employee = new Employee();
-  swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-primary',
-      cancelButton: 'btn btn-outline-secondary ml-4'
-    },
-    buttonsStyling: false
-  });
 
   constructor(private employeeService: EmployeeService,
               private formBuilder: FormBuilder,
