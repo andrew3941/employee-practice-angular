@@ -58,4 +58,5 @@ export class EmployeeListComponent implements OnInit {
     // this.router.navigate(['update', id]);
   }
 
+
 }
