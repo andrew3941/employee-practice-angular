@@ -22,7 +22,8 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() { }
 
   onSubmitEmployee(employeeForm: NgForm) {
-    console.log(employeeForm,"Message");
+    console.log(employeeForm);
   }
+
 }
 
