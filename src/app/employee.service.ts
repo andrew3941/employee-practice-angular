@@ -15,10 +15,11 @@ export class EmployeeService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
+  // This method save and Create the employee
   createEmployee(employee: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, employee);
+    return this.http.post(`${this.baseUrl}` + 'employees/save', employee);
   }
-
+  // This method update the employee
   updateEmployee(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
