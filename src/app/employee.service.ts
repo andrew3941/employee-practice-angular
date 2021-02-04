@@ -16,7 +16,7 @@ export class EmployeeService {
   }
 
   // This method save and Create the employee
-  createEmployee(employee: Object): Observable<Object> {
+  saveEmployee(employee: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}` + 'employees/save', employee);
   }
   // This method update the employee

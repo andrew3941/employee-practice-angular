@@ -1,68 +1,66 @@
-    <form #employeeForm="ngForm"(ngSubmit)="onSubmitEmployee(employeeForm)"  enctype="multipart/form-data" *ngIf="!saveEmployeeSpinner && !employeeSpinner" class="animated fadeIn fast">
-    <div class="form-group">
+<form #f="ngForm" (ngSubmit)="onSubmitEmployee(f)" enctype="multipart/form-data" *ngIf="!saveEmployeeSpinner && !employeeSpinner && !isClosed" class="animated fadeIn fast">
 
+  <div class="form-group">
       <div class="form-row mb-lg-4">
-
-        <div class="col-sm-8">
-      <label class="control-label required">First Name</label>
-      <input type="text" name="firstName" class="form-control" [(ngModel)]="employee.firstName"
-             #firstName="ngModel"
-             [ngClass]="{ 'is-invalid': employeeForm.submitted && firstName.invalid }" required>
-      <div *ngIf="employeeForm.submitted && firstName.errors">
-        <div *ngIf="firstName.errors?.emptyField" class="alert-message">
-          <font style="color: #f01722">this field should not be empty</font>
+        <div class="col-sm-6">
+          <label class="control-label required">First Name</label>
+            <input ngModel #firstName="ngModel" [(ngModel)]="employee.firstName" class="form-control"
+               [ngClass]="{ 'is-invalid': firstName.errors?.emptyField || firstName.errors?.maxlength }"
+               id="firstName"
+               name="firstName"
+               type="text" maxlength="50" required>
+                <div *ngIf="f.submitted && firstName.errors">
+                  <div *ngIf="firstName.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                    This field should not be empty
+                  </div>
+                  <div *ngIf="firstName.errors?.maxlength" class="alert-message" style="color: #dd0000">
+                   cCharacters exceed more than 50
+                  </div>
+                </div>
         </div>
-        <div *ngIf="firstName.errors?.maxlength" class="alert-message">
-          checked first name characters
+        <div class="col-sm-6">
+          <label class="control-label required">Last Name</label>
+          <input ngModel #lastName="ngModel" [(ngModel)]="employee.lastName" class="form-control"
+                 [ngClass]="{ 'is-invalid': lastName.errors?.emptyField || lastName.errors?.maxlength }"
+                 id="lastName"
+                 name="lastName"
+                 type="text" maxlength="50" required>
+          <div *ngIf="f.submitted && lastName.errors">
+            <div *ngIf="lastName.errors?.emptyField" class="alert-message" style="color: #dd0000">
+              This field should not be empty
+            </div>
+            <div *ngIf="lastName.errors?.maxlength" class="alert-message" style="color: #dd0000">
+              characters exceed more than 50
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-        <div class="col-sm-4">
-      <label class="control-label required">Last Name</label>
-      <input type="text" name="lastname" class="form-control"
-             [(ngModel)]="employee.lastName"
-             #lastName="ngModel"
-             [ngClass]="{ 'is-invalid': employeeForm.submitted && lastName.invalid }" required>
-      <div *ngIf="employeeForm.submitted && lastName.errors">
-        <div *ngIf="lastName.errors?.emptyField" class="alert-message">
-          <font style="color: #f01722">this field should not be empty</font>
-        </div>
-        <div *ngIf="firstName.errors?.maxlength" class="alert-message">
-          <font style="color: #f01722">checked last name character</font>
-        </div>
-      </div>
-    </div>
-
-      </div>
-
   </div>
 
   <div class="form-group">
-
     <div class="form-row mb-lg-4">
-
       <div class="col-sm-12">
       <label class="control-label required">Email</label>
-      <input type="text" name="email" class="form-control" [(ngModel)]="employee.email"
-             #email="ngModel"
-             [ngClass]="{ 'is-invalid': employeeForm.submitted && email.invalid }" required email>
-
-      <div *ngIf="employeeForm.submitted && (email.errors?.emptyField || email.errors?.maxlength || email.errors?.pattern)">
-        <div *ngIf="email.errors?.emptyField" class="alert-message">
-          <font style="color: #f01722">email should not be empty</font>
+      <input #email="ngModel" [(ngModel)]="employee.email"
+             [ngClass]="{ 'is-invalid': email.errors?.emptyField || email.errors?.maxlength || email.errors?.pattern }"
+             class="form-control"
+             id="email"
+             name="email"
+             type="text"
+             maxlength="80" required email>
+        <div *ngIf="f.submitted && (email.errors?.emptyField || email.errors?.maxlength || email.errors?.pattern)">
+          <div *ngIf="email.errors?.emptyField" class="alert-message" style="color: #dd0000">
+            This field should not be empty
+          </div>
+          <div *ngIf="email.errors?.maxlength" class="alert-message" style="color: #dd0000">
+            characters must not exceed 80
+          </div>
+          <div *ngIf="email.errors?.pattern" class="alert-message" style="color: #dd0000">
+            The pattern of the email must be correct
+          </div>
         </div>
-        <div *ngIf="email.errors?.maxlength" class="alert-message">
-          <font style="color: #f01722">check email length</font>
-        </div>
-        <div *ngIf="email.errors?.pattern" class="alert-message">
-          <font style="color: #f01722">enter currect email pattern</font>
-        </div>
-       </div>
+      </div>
     </div>
-
-    </div>
-
   </div>
 
   <div class="form-group">
@@ -71,79 +69,87 @@
 
       <div class="col-sm-12">
             <label class="control-label required">Address</label>
-            <input type="text" name="address" class="form-control"
-                   [(ngModel)]="employee.address"
-                   #address="ngModel"
-                   [ngClass]="{ 'is-invalid': employeeForm.submitted && address.invalid}" required>
-          <div *ngIf="employeeForm.submitted && address.errors">
-              <div *ngIf="address.errors?.emptyField" class="alert-message">
-                <font style="color: #f01722">this field should not be empty</font>
-              </div>
-              <div *ngIf="address.errors?.maxlength" class="alert-message">
-                <font style="color: #f01722">checked address character</font>
-              </div>
-            </div>
-          </div>
+                <input ngModel #address="ngModel" [(ngModel)]="employee.address" class="form-control"
+                       [ngClass]="{ 'is-invalid': address.errors?.emptyField || address.errors?.maxlength }"
+                       id="address"
+                       name="address"
+                       type="text" maxlength="150" required>
+                        <div *ngIf="f.submitted && address.errors">
+                          <div *ngIf="address.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                            This field should not be empty
+                          </div>
+                          <div *ngIf="address.errors?.maxlength" class="alert-message" style="color: #dd0000">
+                            characters exceed more than 150
+                          </div>
+                        </div>
       </div>
-
     </div>
+  </div>
 
-    <div class="form-group">
+  <div class="form-group">
       <div class="form-row mb-lg-4">
         <div class="col-md-6">
-        <label class="control-label required">Gender</label>
-          <select name="gender" class="form-control" [(ngModel)]="employee.gender"
-                  #gender="ngModel"
-                  [ngClass]="{ 'is-invalid': employeeForm.submitted && gender.invalid }" required>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          <div *ngIf="employeeForm.submitted && gender.errors">
-            <div *ngIf="gender.errors?.emptyField" class="alert-message">
-              <font style="color: #f01722">enter gender</font>
-            </div>
-          </div>
-      </div>
+          <label class="control-label required">Gender</label>
+            <select  #gender="ngModel" [(ngModel)]="employee.gender" class="form-control"
+                     [ngClass]="{'is-invalid': gender.errors?.emptyField}"
+                     id="gender"
+                     name="gender" required>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+            </select>
+              <div *ngIf="f.submitted && gender.errors">
+                <div *ngIf="gender.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                  Enter employee gender
+                </div>
+              </div>
+        </div>
         <div class="col-md-6">
           <label class="control-label required">Department</label>
-          <select name="department" class="form-control" [(ngModel)]="employee.department"
-                  #department="ngModel"
-                  [ngClass]="{ 'is-invalid': employeeForm.submitted && department.invalid }" required>
-            <option value="Computer Science">Computer Science</option>
-            <option value="Planning">Planning</option>
-            <option value="Accounting">Accounting</option>
-            <option value="Other">Other</option>
+          <select  #department="ngModel" [(ngModel)]="employee.department" class="form-control"
+                   [ngClass]="{ 'is-invalid': department.errors?.emptyField}"
+                   id="department"
+                   name="department" required>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Planning">Planning</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Other">Other</option>
           </select>
-          <div *ngIf="employeeForm.submitted && department.errors">
-            <div *ngIf="department.errors?.emptyField" class="alert-message">
-              <font style="color: #f01722"> enter the department</font>
+            <div *ngIf="f.submitted && department.errors">
+              <div *ngIf="department.errors?.emptyField" class="alert-message" style="color: #dd0000">
+               Select employee department
+              </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
 
-      <div class="form-group">
+  <div class="form-group">
         <div class="form-row mb-lg-4">
-        <div class="col-md-12">
-          <label class="control-label">Phone Number</label>
-          <input type="text" name="address" class="form-control"
-                 maxlength="9" placeholder ="enter number"
-                 [(ngModel)]="employee.phoneNumber"
-                 #phoneNumber="ngModel"
-                 [ngClass]="{ 'is-invalid': employeeForm.submitted && phoneNumber.invalid }" required>
-          <div *ngIf="employeeForm.submitted && phoneNumber.invalid" class="invalid-feedback">
-            <div *ngIf="phoneNumber.errors.errors?.emptyField" class="alert-message">
-              <font style="color: #f01722">enter the phone number</font>
-            </div>
+          <div class="col-md-12">
+            <label class="control-label">Phone Number</label>
+                <input #phoneNumber="ngModel" [(ngModel)]="employee.phoneNumber"  class="form-control"
+                       [ngClass]="{ 'is-invalid': phoneNumber.errors?.emptyField || phoneNumber.errors?.pattern }"
+                       id="phoneNumber"
+                       name="phoneNumber"
+                       maxlength="9"
+                       type="text" required>
+                        <div *ngIf="f.submitted && phoneNumber.errors?.emptyField || phoneNumber.errors?.pattern">
+                          <div *ngIf="phoneNumber.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                            Enter the employee phone number
+                          </div>
+                          <div *ngIf="phoneNumber.errors?.pattern" class="alert-message" style="color: #dd0000">
+                            Enter correct phone number pattern
+                          </div>
+                        </div>
           </div>
-        </div>
         </div>
       </div>
 
-    <button class="btn btn-primary mr-3" type="submit">Submit</button>
-    <button class="btn" (click)="resetemployeeForm()"  style="background-color: #2fdfe5">Reset</button>
+  <button class="btn btn-primary mr-3" type="submit">Submit</button>
+
+  <button class="btn" (click)="resetemployeeForm()"  style="background-color: #2fdfe5">Reset</button>
+
 </form>
 
 

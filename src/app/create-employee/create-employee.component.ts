@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export class CreateEmployeeComponent implements OnInit {
   saveEmployeeSpinner: boolean;
   employeeSpinner: boolean;
+  isClosed: boolean;
   validemployee: boolean;
   employee: Employee = new Employee();
   swalWithBootstrapButtons = Swal.mixin({
@@ -25,37 +26,37 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   constructor(private employeeService: EmployeeService,
-              private formBuilder: FormBuilder,
               private router: Router) { }
 
   ngOnInit() {
 
   }
 
-  // this method validate Query
-  validateQuery(form: NgForm): boolean {
+  // this method validate employee
+  validateEmployee(form: NgForm): boolean {
     this.validemployee = true;
+    const phoneNumber = new RegExp('^[9|8|7|6]?[0-9]{9}$');
     const email = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$');
 
-    // check for the worker
+    // check for the FirstName
     if (this.employee.firstName === null || this.employee.firstName === ''
       || this.employee.firstName === undefined) {
       form.controls.firstName.setErrors({emptyField: true});
       this.validemployee = false;
-    } else if (this.employee.firstName.length > 150) {
+    } else if (this.employee.firstName.length > 50) {
       form.controls.firstName.setErrors({maxlength: true});
       this.validemployee = false;
     }
-
+   // check for the LastName
     if (this.employee.lastName === null || this.employee.lastName === ''
       || this.employee.lastName === undefined) {
-      form.controls.lastname.setErrors({emptyField: true});
+      form.controls.lastName.setErrors({emptyField: true});
       this.validemployee = false;
-    } else if (this.employee.lastName.length > 150) {
-      form.controls.lastname.setErrors({maxlength: true});
+    } else if (this.employee.lastName.length > 50) {
+      form.controls.lastName.setErrors({maxlength: true});
       this.validemployee = false;
     }
-
+    // check for the email
     if (this.employee.email === null || this.employee.email === ''
       || this.employee.email === undefined) {
       form.controls.email.setErrors({emptyField: true});
@@ -67,12 +68,7 @@ export class CreateEmployeeComponent implements OnInit {
       form.controls.email.setErrors({pattern: true});
       this.validemployee = false;
     }
-
-    if (this.employee.phoneNumber === null || this.employee.phoneNumber === undefined) {
-      form.controls.phoneNumber.setErrors({emptyField: true});
-      this.validemployee = false;
-    }
-
+    // check for the address
     if (this.employee.address === null || this.employee.address === ''
       || this.employee.address === undefined) {
       form.controls.address.setErrors({emptyField: true});
@@ -81,7 +77,12 @@ export class CreateEmployeeComponent implements OnInit {
       form.controls.address.setErrors({maxlength: true});
       this.validemployee = false;
     }
-
+    // check for the gender
+    if (this.employee.gender === null || this.employee.gender === undefined) {
+      form.controls.gender.setErrors({emptyField: true});
+      this.validemployee = false;
+    }
+    // check for the department
     if (this.employee.department === null || this.employee.department === ''
       || this.employee.department === undefined) {
       form.controls.department.setErrors({emptyField: true});
@@ -90,9 +91,13 @@ export class CreateEmployeeComponent implements OnInit {
       form.controls.department.setErrors({maxlength: true});
       this.validemployee = false;
     }
-
-    if (this.employee.gender === null || this.employee.gender === undefined) {
-      form.controls.gender.setErrors({emptyField: true});
+    // check for the phoneNumber
+    if(this.employee.phoneNumber === null || this.employee.phoneNumber === undefined) {
+      form.controls.phoneNumber.setErrors({emptyField: true});
+      this.validemployee = false;
+    }
+    if (!phoneNumber.test(String(this.employee.phoneNumber))) {
+      form.controls.phoneNumber.setErrors({pattern: true});
       this.validemployee = false;
     }
     return this.validemployee;
@@ -100,28 +105,44 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   onSubmitEmployee(employeeForm: NgForm) {
-    this.validateQuery(employeeForm);
-    this.employeeService.createEmployee(this.employee)
-      .subscribe((data) => {
-        if (data == 500){
-          this.employeeSpinner = false;
-        } else {
-          this.swalWithBootstrapButtons.fire(
-            'Guardado!',
-
-            'success');
-          this.employeeSpinner = false;
-          this.ngOnInit();
-        }
-      }, error1 => {
-        console.log("submited",employeeForm);
-        this.swalWithBootstrapButtons.fire(
-          'Error!',
-          'error');
-        this.employeeSpinner = false;
+    this.validateEmployee(employeeForm);
+    if (this.validemployee) {
+      this.swalWithBootstrapButtons.fire({
+        title: 'Save employee',
+        text: 'Do you want to Save the employee',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        cancelButtonText: 'Cancelar'
+      }).then(data => {
+        this.employeeService.saveEmployee(this.employee)
+          .subscribe(data=> {
+            if (data){
+              this.swalWithBootstrapButtons.fire(
+                'Error',
+                'error');
+              this.employeeSpinner = false;
+            } else {
+              this.swalWithBootstrapButtons.fire(
+                'Guardado!',
+                'success');
+              this.employeeSpinner = false;
+              this.ngOnInit();
+            }
+          }, error1 => {
+            this.swalWithBootstrapButtons.fire(
+              'Guardado!',
+              'success');
+            this.employeeSpinner = false;
+          });
       });
+      this.employeeSpinner = false;
+    }
   }
-
+// this is to navigate back to home
+  goHome() {
+    this.router.navigate(['/home']);
+  }
   // this method reset New Query model
   resetemployeeForm() {
     this.employee.firstName = null;
