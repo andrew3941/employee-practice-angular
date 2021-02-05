@@ -3,7 +3,7 @@ import { Employee } from '../employee';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {NgForm, FormGroup, FormBuilder} from '@angular/forms';
-import Swal from 'sweetalert2';
+ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-employee',

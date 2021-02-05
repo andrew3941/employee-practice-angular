@@ -24,11 +24,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "src/styles/bootstrap-preving/preving-apps.css",
+              "src/styles/calendarios/preving-calendarios.css",
+              "src/styles/datatables/dataTables.bootstrap4.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/scripts/popper/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/scripts/bootstrap/4.3.1/bootstrap.min.js",
+              "src/scripts/datatables/1.10.19/dataTables.bootstrap4.min.js"
+
+            ]
           },
           "configurations": {
             "production": {

@@ -1,5 +1,8 @@
+import {Tasks} from "./tasks";
+
 export class Employee {
   id: number;
+  tasks: Tasks = new Tasks();
   firstName: string;
   lastName: string;
   gender: string;

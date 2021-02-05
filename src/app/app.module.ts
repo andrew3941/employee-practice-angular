@@ -8,6 +8,11 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+// import {ModalModule} from "ngb-modal";
+// import {ModalModule} from "ngb-modal";
+// import { ModalModule } from 'ng-bootstrap/modal';
+// import { ModalModule } from 'bootstrap/modal';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +27,8 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

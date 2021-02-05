@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class EmployeeService {
 
-  private baseUrl = 'http://localhost:2021/';
+  private baseUrl = 'http://localhost:2021/employees';
 
   constructor(private http: HttpClient) { }
 
@@ -17,12 +17,12 @@ export class EmployeeService {
 
   // This method save and Create the employee
   saveEmployee(employee: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}` + 'employees/save', employee);
+    return this.http.post(`${this.baseUrl}` + '/save', employee);
   }
   // This method update the employee
-  updateEmployee(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
-  }
+  // updateEmployee(id: number, value: any): Observable<Object> {
+  //   return this.http.put(`${this.baseUrl}+``+/${id}`, value);
+  // }
 
   deleteEmployee(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
@@ -30,7 +30,14 @@ export class EmployeeService {
 
   // http://localhost:2021/employee/all
   getEmployeesList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`+'employees/all');
+    return this.http.get(`${this.baseUrl}`+'/all');
   }
+  // Method to get Activity
+  // getpid(pid: number): Observable<any> {
+  //   const url = `${this.baseUrl()}` + '/sajp-activities.do?action=activity&activityId=' + `${activityId}` + '&customerId=' + `${customerId}` ;
+  //   return this.http.get<any>(url);
+  // }
+
+
 
 }
