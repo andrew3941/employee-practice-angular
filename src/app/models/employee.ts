@@ -1,17 +1,17 @@
-import {Tasks} from "./tasks";
+import {Task} from './task';
 
 export class Employee {
   id: number;
-  tasks: Tasks = new Tasks();
   firstName: string;
   lastName: string;
   gender: string;
   address: string;
   department: string;
-  phoneNumber: Number;
+  phoneNumber: number;
   email: string;
-  createdDate:Date;
-  modifyDate:Date;
+  tasks: Task[] = new Array <Task> ();
+  createdDate: Date = new Date();
+  modifyDate: Date = new Date();
 
 
 }

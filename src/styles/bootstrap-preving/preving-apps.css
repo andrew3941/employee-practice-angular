@@ -1,0 +1,157 @@
+/*!
+* Personalizaciones Apps GrupoPreving
+* LMMS - Creado: 11/2018 Modificado: 04/2019
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i');
+
+/* Navegación Superior */
+.navbar {
+    padding: 0;
+}
+.navbar .container {
+    with:100%;
+    max-width: 100% !important;
+}
+.navbar-dark .navbar-nav .font-weight-bold {
+    font-weight: 900;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 1);
+}
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .active .nav-link {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+nav .btn-primary:hover,
+.dropdown-item:focus,
+.dropdown-item:hover {
+    background: #EE6A01;
+    border-color: #EE6A01;
+}
+
+.nav-link {
+    display: block;
+    padding: .3rem .6rem .4rem;
+}
+.nav-tabs .nav-link {
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+
+.nav-tabs .nav-link {
+    background-color: #f0f0f0;
+    border-color: #dee2e6;
+}
+.nav-tabs .nav-link.active {
+    color:#dc3545!important
+}
+@media screen and (min-width: 1251px) /* Desktop */ {
+    #moreTabs {
+        display:none;
+    }
+}
+@media screen and (max-width: 1250px) /* Desktop */ {
+    .newTab {
+        display:none !important;
+    }
+}
+
+
+.dropdown-menu {
+    left: 3px;
+    padding: 0;
+    min-width: 8rem;
+}
+
+.dropdown-item {
+    padding: .3rem .5rem;
+}
+
+
+/* Tablas */
+.table-striped tbody tr:nth-of-type(odd) {
+   background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Formularios */
+
+.card-footer {
+    background-color: rgba(255,255,255,1);
+    padding: .75rem .75rem;
+  }
+
+/* Footer Genérico */
+/*
+main {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+*/
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+
+b,
+strong {
+    font-weight: 500;
+}
+
+.footer {
+
+  position: absolute;
+  bottom: 0;
+  /* Set the fixed height of the footer here */
+  height: 35px;
+  line-height: 35px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+  border-top: 2px solid #FFF;
+}
+
+pingendo,
+.hide {
+  display: none !important;
+  visibility: hidden !important;
+}
+/* Cabecera personalizada para buscadores y navegador de registros*/
+.card-header {
+    padding: 0.2rem 0.75rem 0.2rem 0.75rem;
+    padding: 0.2rem 0.75rem 0.22rem 0.8rem;
+}
+.card-header.tabs {
+	padding-bottom:12px;
+}
+.card-header.record {
+  padding: 0.2rem 0rem 0.2rem 0.75rem !important;
+}
+.modal-content {
+  border-radius: 0.4rem;
+}
+.small, small {
+  font-size:85%;
+}
+
+/* Control de errores */
+.alert-border {
+  border:1px solid red;
+  border-color:red;
+}
+
+.alert-message {
+  color: red;
+  background-color: white;
+  border-color: white;
+  font-size: 12px;
+}
+

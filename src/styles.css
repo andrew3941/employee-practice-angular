@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  padding-bottom: 50px;
+}
+
+.main-container {
+  margin-top: 20px;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -27,19 +35,31 @@
   animation-name: fadeIn;
 }
 
-.card .card-header {
-  font-size: 14px;
-}
-
 .notification {
   background-color: #572364;
   opacity: 0.5;
 }
 
-.header-link-custom {
-  cursor: pointer;
+.my-modal-header {
+  background-color: #572364;
+  color: white;
 }
 
-.header-link-custom:hover {
-  font-weight: bold;
+
+.multiselect-dropdown .dropdown-btn .selected-item  {
+  margin-right: 4px;
+  background: #572364 !important;
+  padding: 0 5px;
+  color: #ffffff;
+  border-radius: 2px;
+  float: left;
+  border:1px solid #572364 !important;
+}
+
+.multiselect-item-checkbox input[type=checkbox] + div:before {
+  border: 2px solid #572364 !important;
+}
+
+.multiselect-item-checkbox input[type=checkbox]:checked + div:before{
+  background: #572364 !important;
 }

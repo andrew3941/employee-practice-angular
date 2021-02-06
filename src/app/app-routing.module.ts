@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
-import { CreateEmployeeComponent } from './create-employee/create-employee.component';
-
+import { EmployeeDetailsComponent } from './components/employee-details/employee-details.component';
+import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
+import {HomeComponent} from "./components/home/home.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'employee', pathMatch: 'full' },
-  { path: 'employees', component: EmployeeListComponent },
-  { path: 'add', component: CreateEmployeeComponent },
-  { path: 'update/:id', component: EmployeeUpdateComponent },
-  { path: 'details/:id', component: EmployeeDetailsComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'employees', component: CreateEmployeeComponent },
+  { path: 'employees/:id/edit', component: EmployeeDetailsComponent },
 ];
 
 @NgModule({

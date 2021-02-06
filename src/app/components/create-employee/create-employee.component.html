@@ -1,0 +1,225 @@
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header small">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveEmployee">
+          Add Employee
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <h5 class="card-title text-center">Employee Management System.</h5>
+    <p class="card-text text-center">Basic CRUD to perform Employment </p>
+
+    <table  class="table table-striped table-sm" style="width:100%">
+      <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Department</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let employee of employees">
+        <td>{{employee.createdDate}}</td>
+        <td>{{employee.firstName}}</td>
+        <td>{{employee.lastName}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.department}}</td>
+        <td>
+
+          <span><a class="text-dark"><i class="fa fa-edit mr-2"></i></a></span>
+
+           <span><a class="text-dark" [routerLink]="[employee.id, 'edit']"><i class="fa fa-dashcube mr-2 "></i></a></span>
+
+           <span><a class="text-dark" (click)="deleteEmployeeById(employee.id)">
+               <i [ngClass]="deletingEmployeeFileId  == employee.id? 'fa fa-spinner fa-spin' : 'fa fa-trash mr-2'"></i>
+              </a></span>
+
+        </td>
+      </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<!--/end of card -->
+<!-- MODAL FORMULARIO OK -->
+<div class="modal fade" id="saveEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormularioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title text-white" id="exampleModalFormularioLabel">Bloqueo de cliente</h5>
+      </div>
+      <div class="modal-body">
+
+        <form #f="ngForm" (ngSubmit)="onSubmitEmployee(f)" enctype="multipart/form-data" *ngIf="!saveEmployeeSpinner && !employeeSpinner && !isClosed" class="animated fadeIn fast">
+
+          <div class="form-group">
+              <div class="form-row mb-lg-4">
+                <div class="col-sm-6">
+                  <label class="control-label required">First Name</label>
+                    <input ngModel #firstName="ngModel" [(ngModel)]="employee.firstName" class="form-control"
+                       [ngClass]="{ 'is-invalid': firstName.errors?.emptyField || firstName.errors?.maxlength }"
+                       id="firstName"
+                       name="firstName"
+                       type="text" maxlength="50" required>
+                        <div *ngIf="f.submitted && firstName.errors">
+                          <div *ngIf="firstName.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                            This field should not be empty
+                          </div>
+                          <div *ngIf="firstName.errors?.maxlength" class="alert-message" style="color: #dd0000">
+                           cCharacters exceed more than 50
+                          </div>
+                        </div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="control-label required">Last Name</label>
+                  <input ngModel #lastName="ngModel" [(ngModel)]="employee.lastName" class="form-control"
+                         [ngClass]="{ 'is-invalid': lastName.errors?.emptyField || lastName.errors?.maxlength }"
+                         id="lastName"
+                         name="lastName"
+                         type="text" maxlength="50" required>
+                  <div *ngIf="f.submitted && lastName.errors">
+                    <div *ngIf="lastName.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                      This field should not be empty
+                    </div>
+                    <div *ngIf="lastName.errors?.maxlength" class="alert-message" style="color: #dd0000">
+                      characters exceed more than 50
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-row mb-lg-4">
+              <div class="col-sm-12">
+              <label class="control-label required">Email</label>
+              <input #email="ngModel" [(ngModel)]="employee.email"
+                     [ngClass]="{ 'is-invalid': email.errors?.emptyField || email.errors?.maxlength || email.errors?.pattern }"
+                     class="form-control"
+                     id="email"
+                     name="email"
+                     type="text"
+                     maxlength="80" required email>
+                <div *ngIf="f.submitted && (email.errors?.emptyField || email.errors?.maxlength || email.errors?.pattern)">
+                  <div *ngIf="email.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                    This field should not be empty
+                  </div>
+                  <div *ngIf="email.errors?.maxlength" class="alert-message" style="color: #dd0000">
+                    characters must not exceed 80
+                  </div>
+                  <div *ngIf="email.errors?.pattern" class="alert-message" style="color: #dd0000">
+                    The pattern of the email must be correct
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+
+            <div class="form-row mb-lg-4">
+
+              <div class="col-sm-12">
+                    <label class="control-label required">Address</label>
+                        <input ngModel #address="ngModel" [(ngModel)]="employee.address" class="form-control"
+                               [ngClass]="{ 'is-invalid': address.errors?.emptyField || address.errors?.maxlength }"
+                               id="address"
+                               name="address"
+                               type="text" maxlength="150" required>
+                                <div *ngIf="f.submitted && address.errors">
+                                  <div *ngIf="address.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                                    This field should not be empty
+                                  </div>
+                                  <div *ngIf="address.errors?.maxlength" class="alert-message" style="color: #dd0000">
+                                    characters exceed more than 150
+                                  </div>
+                                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+              <div class="form-row mb-lg-4">
+                <div class="col-md-6">
+                  <label class="control-label required">Gender</label>
+                    <select  #gender="ngModel" [(ngModel)]="employee.gender" class="form-control"
+                             [ngClass]="{'is-invalid': gender.errors?.emptyField}"
+                             id="gender"
+                             name="gender" required>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                              <option value="Other">Other</option>
+                    </select>
+                      <div *ngIf="f.submitted && gender.errors">
+                        <div *ngIf="gender.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                          Enter employee gender
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="control-label required">Department</label>
+                  <select  #department="ngModel" [(ngModel)]="employee.department" class="form-control"
+                           [ngClass]="{ 'is-invalid': department.errors?.emptyField}"
+                           id="department"
+                           name="department" required>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Planning">Planning</option>
+                            <option value="Accounting">Accounting</option>
+                            <option value="Other">Other</option>
+                  </select>
+                    <div *ngIf="f.submitted && department.errors">
+                      <div *ngIf="department.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                       Select employee department
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          <div class="form-group">
+                <div class="form-row mb-lg-4">
+                  <div class="col-md-12">
+                    <label class="control-label">Phone Number</label>
+                        <input #phoneNumber="ngModel" [(ngModel)]="employee.phoneNumber"  class="form-control"
+                               [ngClass]="{ 'is-invalid': phoneNumber.errors?.emptyField || phoneNumber.errors?.pattern }"
+                               id="phoneNumber"
+                               name="phoneNumber"
+                               maxlength="9"
+                               type="text" required>
+                                <div *ngIf="f.submitted && phoneNumber.errors?.emptyField || phoneNumber.errors?.pattern">
+                                  <div *ngIf="phoneNumber.errors?.emptyField" class="alert-message" style="color: #dd0000">
+                                    Enter the employee phone number
+                                  </div>
+                                  <div *ngIf="phoneNumber.errors?.pattern" class="alert-message" style="color: #dd0000">
+                                    Enter correct phone number pattern
+                                  </div>
+                                </div>
+                  </div>
+                </div>
+              </div>
+
+         <div class="text-right">
+           <button class="btn btn-primary mr-3" type="submit">Submit</button>
+
+           <button class="btn" (click)="resetemployeeForm()">Reset</button>
+
+         </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
